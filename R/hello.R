@@ -30,7 +30,7 @@ getDataSet <- function(){
   #  转化为数据集
   da <- jsonlite::fromJSON(data)
   #  返回数据集
-    return(da)
+  return(da)
 }
 
 #导出excel
@@ -122,13 +122,13 @@ getLine <- function(data,colume_name='confirmed_num',address='全部',startTime=
   options(scipen=200)
 
   gg <- switch (colume_name,
-    "remove_observation_num" = ggplot(data,aes(x=time,y=remove_observation_num,colour=province,group=province)),
-    "touch_num" = ggplot(data,aes(x=time,y=touch_num,colour=province,group=province)),
-    "severe_num" = ggplot(data,aes(x=time,y=severe_num,colour=province,group=province)),
-    "accept_num" = ggplot(data,aes(x=time,y=accept_num,colour=province,group=province)),
-    "cure_num" = ggplot(data,aes(x=time,y=cure_num,colour=province,group=province)),
-    "die_num " = ggplot(data,aes(x=time,y=die_num,colour=province,group=province)),
-    ggplot(data,aes(x=time,y=confirmed_num,colour=province,group=province))
+                "remove_observation_num" = ggplot(data,aes(x=time,y=remove_observation_num,colour=province,group=province)),
+                "touch_num" = ggplot(data,aes(x=time,y=touch_num,colour=province,group=province)),
+                "severe_num" = ggplot(data,aes(x=time,y=severe_num,colour=province,group=province)),
+                "accept_num" = ggplot(data,aes(x=time,y=accept_num,colour=province,group=province)),
+                "cure_num" = ggplot(data,aes(x=time,y=cure_num,colour=province,group=province)),
+                "die_num " = ggplot(data,aes(x=time,y=die_num,colour=province,group=province)),
+                ggplot(data,aes(x=time,y=confirmed_num,colour=province,group=province))
   )
 
   desc <- switch(colume_name,
@@ -139,7 +139,7 @@ getLine <- function(data,colume_name='confirmed_num',address='全部',startTime=
                  "cure_num"="累计治愈数",
                  "die_num"="累计死亡数",
                  "累计确诊数"
-                 )
+  )
   gg+geom_line()+xlab("时间")+ylab(desc)+ggtitle(paste(address,desc,"折线图",sep = "",collapse = ""))
 }
 
@@ -148,15 +148,15 @@ editColumnName <- function(columnName){
   newColumnName <- c()
   for (i in columnName) {
     name <- switch (i,
-      "province" = "province(地区)",
-      "remove_observation_num" = "remove_observation_num(解除医学观察数)",
-      "touch_num" = "touch_num(密切接触者数)",
-      "confirmed_num" = "confirmed_num(累计确诊数)",
-      "severe_num" = "severe_num(现有重症数)",
-      "accept_num" = "accept_num(接受医学观察数)",
-      "time" = "time(发布日期)",
-      "cure_num" = "cure_num(累计治愈数)",
-      "die_num" = "die_num(累计死亡数)"
+                    "province" = "province(地区)",
+                    "remove_observation_num" = "remove_observation_num(解除医学观察数)",
+                    "touch_num" = "touch_num(密切接触者数)",
+                    "confirmed_num" = "confirmed_num(累计确诊数)",
+                    "severe_num" = "severe_num(现有重症数)",
+                    "accept_num" = "accept_num(接受医学观察数)",
+                    "time" = "time(发布日期)",
+                    "cure_num" = "cure_num(累计治愈数)",
+                    "die_num" = "die_num(累计死亡数)"
     )
     newColumnName[length(newColumnName)+1] <- name
   }
@@ -168,11 +168,11 @@ editColumnName <- function(columnName){
 #' @return String
 #' @export
 #' @author yx
-getTd <- function(data,colume_name='confirmed_num',time=''){
+getTd <- function(data,colume_name='confirmed_num',time='',low="white",high="red"){
   #去掉科学计数
   options(scipen=200)
-  url <- system.file("bou2_4p.shp", package="GzbdiDataSet")
-  china_map <- readShapePoly(url)
+
+  china_map <- readShapePoly(system.file("bou2_4p.shp", package="GzbdiDataSet"))
   x<-china_map@data
   xs<-data.frame(x,id=seq(0:924)-1)#地图中共计有925个地域信息
   china_map1<-fortify(china_map)
@@ -193,14 +193,14 @@ getTd <- function(data,colume_name='confirmed_num',time=''){
   province_city<-read.csv(system.file("pcity.csv", package="GzbdiDataSet"),header=T,as.is=T)#获取省会城市坐标
 
   numPlot <- switch (colume_name,
-             "remove_observation_num" = geom_polygon(aes(group=group,fill=remove_observation_num),colour="grey",size=0.01),
-             "touch_num" = geom_polygon(aes(group=group,fill=touch_num),colour="grey",size=0.01),
-             "severe_num" = geom_polygon(aes(group=group,fill=severe_num),colour="grey",size=0.01),
-             "accept_num" = geom_polygon(aes(group=group,fill=accept_num),colour="grey",size=0.01),
-             "cure_num" = geom_polygon(aes(group=group,fill=cure_num),colour="grey",size=0.01),
-             "die_num" = geom_polygon(aes(group=group,fill=die_num),colour="grey",size=0.01),
-             geom_polygon(aes(group=group,fill=confirmed_num),colour="grey",size=0.01)
-          )
+                     "remove_observation_num" = geom_polygon(aes(group=group,fill=remove_observation_num),colour="grey",size=0.01),
+                     "touch_num" = geom_polygon(aes(group=group,fill=touch_num),colour="grey",size=0.01),
+                     "severe_num" = geom_polygon(aes(group=group,fill=severe_num),colour="grey",size=0.01),
+                     "accept_num" = geom_polygon(aes(group=group,fill=accept_num),colour="grey",size=0.01),
+                     "cure_num" = geom_polygon(aes(group=group,fill=cure_num),colour="grey",size=0.01),
+                     "die_num" = geom_polygon(aes(group=group,fill=die_num),colour="grey",size=0.01),
+                     geom_polygon(aes(group=group,fill=confirmed_num),colour="grey",size=0.01)
+  )
   desc <- switch(colume_name,
                  "remove_observation_num"="解除医学观察数",
                  "touch_num"="密切接触者数",
@@ -212,7 +212,7 @@ getTd <- function(data,colume_name='confirmed_num',time=''){
   )
   ggplot(china_data,aes(long,lat))+
     numPlot+
-    scale_fill_gradient(name=desc,low="white",high="red")+
+    scale_fill_gradient(name=desc,low=low,high=high)+
     coord_map("polyconic")+
     geom_text(aes(x=jd,y=wd,label=name),data=province_city,colour="black",size=2.5)+
     labs(title=paste(nowTime,desc,"热力图",seq="",collapse = ""))+
@@ -354,13 +354,12 @@ getEditProvince <- function(area){
   return(address)
 }
 
-
 # 热力图
 #' @title getTdRatio
 #' @return String
 #' @export
 #' @author yx
-getTdRatio <- function(data,colume_name='cure_num',time=''){
+getTdRatio <- function(data,colume_name='cure_num',time='',low="white",high="red"){
   #去掉科学计数
   options(scipen=200)
   url <- system.file("bou2_4p.shp", package="GzbdiDataSet")
@@ -402,7 +401,7 @@ getTdRatio <- function(data,colume_name='cure_num',time=''){
   )
   ggplot(china_data,aes(long,lat))+
     numPlot+
-    scale_fill_gradient(name=desc,low="white",high="red")+
+    scale_fill_gradient(name=desc,low=low,high=high)+
     coord_map("polyconic")+
     geom_text(aes(x=jd,y=wd,label=name),data=province_city,colour="black",size=2.5)+
     labs(title=paste(nowTime,desc,"热力图",seq="",collapse = ""))+
@@ -417,3 +416,66 @@ getTdRatio <- function(data,colume_name='cure_num',time=''){
 }
 
 
+# 热力图
+#' @title getTdRatioCustom
+#' @return String
+#' @export
+#' @author yx
+getTdRatioCustom <- function(data,dividend=c(),divisor=c(),desc='',time = '',low="white",high="red"){
+
+  if(length(dividend)==0){
+    dividend <- data$cure_num
+  }
+  if(length(dividend)==0){
+    divisor <- data$confirmed_num
+  }
+
+  data1 <- dividend/divisor
+
+  data[,length(data)+1] <- data1
+
+  names(data)[length(data)] <- "newData"
+
+  #去掉科学计数
+  options(scipen=200)
+  url <- system.file("bou2_4p.shp", package="GzbdiDataSet")
+  china_map <- readShapePoly(url)
+  x<-china_map@data
+  xs<-data.frame(x,id=seq(0:924)-1)#地图中共计有925个地域信息
+  china_map1<-fortify(china_map)
+  china_map_data<-join(china_map1,xs,type="full")#基于id进行连接
+  #unique(china_map@data$NAME)#查看地图数据中保存的地域名称，编辑自己的数据与其一致
+
+  mydata <- getChinaData(data)
+  names(mydata)[1] <- "NAME"
+  # 筛选时间
+  nowTime <- time
+  if(time==''){
+    nowTime <- format(Sys.time(),format = "%Y-%m-%d")
+  }
+  mydata <- mydata[mydata$time==nowTime,]
+
+  china_data <- join(china_map_data, mydata, type="full")#基于NAME字段进行连接，NAME字段来自于地图文件中
+
+  province_city<-read.csv(system.file("pcity.csv", package="GzbdiDataSet"),header=T,as.is=T)#获取省会城市坐标
+
+  numPlot <- geom_polygon(aes(group=group,fill=newData),colour="grey",size=0.01)
+
+  if(desc==''){
+    desc <- "累计治愈数/累计确诊数"
+  }
+  ggplot(china_data,aes(long,lat))+
+    numPlot+
+    scale_fill_gradient(name=desc,low=low,high=high)+
+    coord_map("polyconic")+
+    geom_text(aes(x=jd,y=wd,label=name),data=province_city,colour="black",size=2.5)+
+    labs(title=paste(nowTime,desc,"热力图",seq="",collapse = ""))+
+    theme(
+      panel.grid=element_blank(),
+      panel.background=element_blank(),
+      axis.text=element_blank(),
+      axis.ticks=element_blank(),
+      axis.title=element_blank()
+    )
+
+}
