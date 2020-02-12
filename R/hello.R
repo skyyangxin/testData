@@ -172,8 +172,6 @@ getTd <- function(data,colume_name='confirmed_num',time=''){
   #去掉科学计数
   options(scipen=200)
   url <- system.file("bou2_4p.shp", package="GzbdiDataSet")
-  print("111")
-  print(url)
   china_map <- readShapePoly(url)
   x<-china_map@data
   xs<-data.frame(x,id=seq(0:924)-1)#地图中共计有925个地域信息
