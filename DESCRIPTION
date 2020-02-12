@@ -1,0 +1,19 @@
+Package: GzbdiDataSet
+Type: Package
+Title: GzbdiDataSet
+Version: 0.1.0
+Author: gzbdi
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: this is a dataSet
+Imports: 
+  ggplot2,
+  httr,
+  rjson,
+  remotes,
+  mapdata,
+  maptools,
+  plyr,
+  mapproj
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
