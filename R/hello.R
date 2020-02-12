@@ -421,14 +421,7 @@ getTdRatio <- function(data,colume_name='cure_num',time='',low="white",high="red
 #' @return String
 #' @export
 #' @author yx
-getTdRatioCustom <- function(data,dividend=c(),divisor=c(),desc='',time = '',low="white",high="red"){
-
-  if(length(dividend)==0){
-    dividend <- data$cure_num
-  }
-  if(length(dividend)==0){
-    divisor <- data$confirmed_num
-  }
+getTdRatioCustom <- function(data,dividend=data$cure_num,divisor=data$confirmed_num,desc='',time = '',low="white",high="red"){
 
   data1 <- dividend/divisor
 
