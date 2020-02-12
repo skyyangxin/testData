@@ -421,14 +421,7 @@ getTdRatio <- function(data,colume_name='cure_num',time='',low="white",high="red
 #' @return String
 #' @export
 #' @author yx
-getTdRatioCustom <- function(data,dividend="",divisor="",desc='',time = '',low="white",high="red"){
-
-  if(dividend==""){
-    dividend <- data$cure_num
-  }
-  if(divisor==""){
-    divisor <- data$confirmed_num
-  }
+getTdRatioCustom <- function(data,dividend,divisor,desc='比例',time = '',low="white",high="red"){
 
   data1 <- dividend/divisor
 
@@ -461,9 +454,6 @@ getTdRatioCustom <- function(data,dividend="",divisor="",desc='',time = '',low="
 
   numPlot <- geom_polygon(aes(group=group,fill=newData),colour="grey",size=0.01)
 
-  if(desc==''){
-    desc <- "累计治愈数/累计确诊数"
-  }
   ggplot(china_data,aes(long,lat))+
     numPlot+
     scale_fill_gradient(name=desc,low=low,high=high)+
