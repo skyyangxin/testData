@@ -172,6 +172,7 @@ getTd <- function(data,colume_name='confirmed_num',time=''){
   #去掉科学计数
   options(scipen=200)
   url <- system.file("bou2_4p.shp", package="GzbdiDataSet")
+  print("111")
   print(url)
   china_map <- readShapePoly(url)
   x<-china_map@data
